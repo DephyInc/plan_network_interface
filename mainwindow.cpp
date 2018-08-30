@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_3, &QPushButton::clicked, this, &MainWindow::sendExoPowerOn);
     connect(ui->pushButton_4, &QPushButton::clicked, this, &MainWindow::sendExoPowerOff);
     connect(ui->pushButton_5, &QPushButton::clicked, this, &MainWindow::connectToPlanGUI);
+    connect(ui->pushButton_6, &QPushButton::clicked, this, &MainWindow::requestTimestamps);
+
 }
 
 void MainWindow::connectToPlanGUI()
@@ -48,15 +50,19 @@ void MainWindow::connectToPlanGUI()
 void MainWindow::readSocket()
 {
     QByteArray response = tcpSocket->readAll();
-    for(int i = 0; i < response.size(); i++)
+
+    if(response.at(0) == CONNECTION_ACK)
     {
-        if(response.at(i) == CONNECTION_ACK)
-        {
-            QString l = QStringLiteral("Connected to ") + hostAddress;
-            ui->label->setText(l);
-            std::cout << l.toStdString() << std::endl;
-        }
+        QString l = QStringLiteral("Connected to ") + hostAddress;
+        ui->label->setText(l);
+        std::cout << l.toStdString() << std::endl;
     }
+    else
+    {
+        ui->label->setText(response);
+        std::cout << response.toStdString() << std::endl;
+    }
+
 
 }
 
@@ -97,6 +103,14 @@ void MainWindow::sendExoPowerOff()
     if(!tcpSocket->isOpen()) return;
     sendCommand(EXO_POWER_CMD, POWER_LOW);
     std::cout << "Sent power low \n";
+    fflush(stdout);
+}
+
+void MainWindow::requestTimestamps()
+{
+    if(!tcpSocket->isOpen()) return;
+    sendCommand(EXO_TIMESTAMP_CMD, 0);
+    std::cout << "Sent timestamp request\n";
     fflush(stdout);
 }
 

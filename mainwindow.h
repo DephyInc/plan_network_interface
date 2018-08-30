@@ -28,6 +28,7 @@ public slots:
     void sendStreamOff();
     void sendExoPowerOn();
     void sendExoPowerOff();
+    void requestTimestamps();
 
 private:
     Ui::MainWindow *ui;
