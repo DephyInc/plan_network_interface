@@ -24,15 +24,19 @@ TEMPLATE = app
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp
+		main.cpp \
+		mainwindow.cpp \
+		w_event.cpp
 
 HEADERS += \
-        mainwindow.h \
-    networkinterface.h
+		mainwindow.h \
+		networkinterface.h \
+		w_event.h \
+		counter.h
 
 FORMS += \
-        mainwindow.ui
+		mainwindow.ui \
+		w_event.ui
 
 RESOURCES += \
-    misc/icons.qrc
+	misc/icons.qrc
