@@ -31,6 +31,8 @@ public slots:
 	void requestTimestamps();
 	void eventFlag(int index);
 	void sendEventFlag(int8_t f);
+	void sendExoResetStats();
+	void sendExoCustom2();
 
 private:
 	Ui::MainWindow *ui;

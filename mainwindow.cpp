@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	this->setWindowTitle("Network Command Sender");
 
+	/*
 	//Open Event Flag window
 	evWindow = new QWidget();
 	evWindow->resize(286, 272);
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	evWindow->show();
 	W_Event *myEventWin = new W_Event(evWindow);
 	myEventWin->show();
+	*/
 
 	//Default text:
 	ui->textEdit->setText("127.0.0.1");
@@ -33,7 +35,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_5, &QPushButton::clicked, this, &MainWindow::connectToPlanGUI);
 	connect(ui->pushButton_6, &QPushButton::clicked, this, &MainWindow::requestTimestamps);
 
-	connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
+	connect(ui->pushButton_7, &QPushButton::clicked, this, &MainWindow::sendExoResetStats);
+	connect(ui->pushButton_8, &QPushButton::clicked, this, &MainWindow::sendExoCustom2);
+
+	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 }
 
 void MainWindow::eventFlag(int index)
@@ -103,6 +108,22 @@ void MainWindow::sendStreamOff()
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_STREAM_CMD, STREAM_STOP);
 	std::cout << "Sent stream off \n";
+	fflush(stdout);
+}
+
+void MainWindow::sendExoResetStats()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_CUSTOM_CMD, CU_RESET_STATS);
+	std::cout << "Sent Reset Stats \n";
+	fflush(stdout);
+}
+
+void MainWindow::sendExoCustom2()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_CUSTOM_CMD, CU_2);
+	std::cout << "Sent Custom 2 \n";
 	fflush(stdout);
 }
 
