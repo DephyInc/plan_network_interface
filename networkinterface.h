@@ -14,7 +14,8 @@ const char STREAM_STOP = 0x12;
 const char POWER_HIGH = 0x13;
 const char POWER_LOW = 0x14;
 const char CU_RESET_STATS = 0x15;
-const char CU_2 = 0x16;
+const char CU_START_LEARNING = 0x16;
+const char CU_STOP_LEARNING = 0x17;
 
 //Settings & internal:
 const char COMMAND_LENGTH = 3;

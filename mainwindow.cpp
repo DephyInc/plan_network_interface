@@ -34,9 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_4, &QPushButton::clicked, this, &MainWindow::sendExoPowerOff);
 	connect(ui->pushButton_5, &QPushButton::clicked, this, &MainWindow::connectToPlanGUI);
 	connect(ui->pushButton_6, &QPushButton::clicked, this, &MainWindow::requestTimestamps);
-
 	connect(ui->pushButton_7, &QPushButton::clicked, this, &MainWindow::sendExoResetStats);
-	connect(ui->pushButton_8, &QPushButton::clicked, this, &MainWindow::sendExoCustom2);
+	connect(ui->pushButton_8, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
+	connect(ui->pushButton_9, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
 
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 }
@@ -119,11 +119,19 @@ void MainWindow::sendExoResetStats()
 	fflush(stdout);
 }
 
-void MainWindow::sendExoCustom2()
+void MainWindow::sendExoStartLearning()
 {
 	if(!tcpSocket->isOpen()) return;
-	sendCommand(EXO_CUSTOM_CMD, CU_2);
-	std::cout << "Sent Custom 2 \n";
+	sendCommand(EXO_CUSTOM_CMD, CU_START_LEARNING);
+	std::cout << "Sent Exo Start Learning \n";
+	fflush(stdout);
+}
+
+void MainWindow::sendExoStopLearning()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_CUSTOM_CMD, CU_STOP_LEARNING);
+	std::cout << "Sent Exo Stop Learning \n";
 	fflush(stdout);
 }
 

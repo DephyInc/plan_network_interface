@@ -32,7 +32,8 @@ public slots:
 	void eventFlag(int index);
 	void sendEventFlag(int8_t f);
 	void sendExoResetStats();
-	void sendExoCustom2();
+	void sendExoStartLearning();
+	void sendExoStopLearning();
 
 private:
 	Ui::MainWindow *ui;
