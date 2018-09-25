@@ -34,6 +34,7 @@ public slots:
 	void sendExoResetStats();
 	void sendExoStartLearning();
 	void sendExoStopLearning();
+	void sendExoReadUTT();
 
 private:
 	Ui::MainWindow *ui;

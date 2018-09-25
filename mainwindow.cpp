@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_7, &QPushButton::clicked, this, &MainWindow::sendExoResetStats);
 	connect(ui->pushButton_8, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
 	connect(ui->pushButton_9, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
+	connect(ui->pushButton_10, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
 
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 }
@@ -123,7 +124,7 @@ void MainWindow::sendExoStartLearning()
 {
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_CUSTOM_CMD, CU_START_LEARNING);
-	std::cout << "Sent Exo Start Learning \n";
+	std::cout << "Sent Exo Start Learning\n";
 	fflush(stdout);
 }
 
@@ -131,7 +132,7 @@ void MainWindow::sendExoStopLearning()
 {
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_CUSTOM_CMD, CU_STOP_LEARNING);
-	std::cout << "Sent Exo Stop Learning \n";
+	std::cout << "Sent Exo Stop Learning\n";
 	fflush(stdout);
 }
 
@@ -139,7 +140,7 @@ void MainWindow::sendExoPowerOn()
 {
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_POWER_CMD, POWER_HIGH);
-	std::cout << "Sent power high \n";
+	std::cout << "Sent power high\n";
 	fflush(stdout);
 }
 
@@ -147,7 +148,15 @@ void MainWindow::sendExoPowerOff()
 {
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_POWER_CMD, POWER_LOW);
-	std::cout << "Sent power low \n";
+	std::cout << "Sent power low\n";
+	fflush(stdout);
+}
+
+void MainWindow::sendExoReadUTT()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_CUSTOM_CMD, CU_READ_UTT);
+	std::cout << "Sent Read UTT\n";
 	fflush(stdout);
 }
 

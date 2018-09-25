@@ -16,6 +16,7 @@ const char POWER_LOW = 0x14;
 const char CU_RESET_STATS = 0x15;
 const char CU_START_LEARNING = 0x16;
 const char CU_STOP_LEARNING = 0x17;
+const char CU_READ_UTT = 0x18;
 
 //Settings & internal:
 const char COMMAND_LENGTH = 3;
