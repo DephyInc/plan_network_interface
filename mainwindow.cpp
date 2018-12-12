@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_8, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
 	connect(ui->pushButton_9, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
 	connect(ui->pushButton_10, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
+	connect(ui->pushButton_11, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
 
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 }
@@ -165,6 +166,14 @@ void MainWindow::requestTimestamps()
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_TIMESTAMP_CMD, 0);
 	std::cout << "Sent timestamp request\n";
+	fflush(stdout);
+}
+
+void MainWindow::sendTimestamp()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_TIMESTAMP_CMD, 1);
+	std::cout << "Wrote timestamp\n";
 	fflush(stdout);
 }
 

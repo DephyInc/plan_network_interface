@@ -29,6 +29,7 @@ public slots:
 	void sendExoPowerOn();
 	void sendExoPowerOff();
 	void requestTimestamps();
+	void sendTimestamp();
 	void eventFlag(int index);
 	void sendEventFlag(int8_t f);
 	void sendExoResetStats();
