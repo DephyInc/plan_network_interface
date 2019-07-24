@@ -191,12 +191,26 @@ void MainWindow::sendTimestamp()
 	fflush(stdout);
 }
 
+void MainWindow::gaussianToBytes(int16_t ga[GA_ROWS][GA_COLS], char *bArray)
+{
+	int b = 0;
+	for(int r = 0; r < GA_ROWS; r++)
+	{
+		for(int c = 0; c < GA_COLS; c++)
+		{
+			 bArray[b++] = (uint8_t)((ga[r][c] >> 8) & 0xFF);
+			 bArray[b++] = (uint8_t)(ga[r][c] & 0xFF);
+		}
+	}
+}
+
 void MainWindow::sendGaussianArray1()
 {
 	if(!tcpSocket->isOpen()) return;
-	//sendCommand(EXO_GAUSSIAN_CMD, 1);
-	char testArray[10] = {10,11,12,13,14};
-	sendLongCommand(EXO_GAUSSIAN_CMD, 1, testArray, 5);
+
+	char testArray[30];
+	gaussianToBytes(gaArr1, testArray);
+	sendLongCommand(EXO_GAUSSIAN_CMD, 1, testArray, 30);
 
 	std::cout << "Wrote Gaussians #1\n";
 	fflush(stdout);
@@ -205,7 +219,11 @@ void MainWindow::sendGaussianArray1()
 void MainWindow::sendGaussianArray2()
 {
 	if(!tcpSocket->isOpen()) return;
-	sendCommand(EXO_GAUSSIAN_CMD, 2);
+
+	char testArray[30];
+	gaussianToBytes(gaArr2, testArray);
+	sendLongCommand(EXO_GAUSSIAN_CMD, 1, testArray, 30);
+
 	std::cout << "Wrote Gaussians #2\n";
 	fflush(stdout);
 }

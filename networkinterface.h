@@ -1,6 +1,13 @@
 #ifndef NETWORKINTERFACE_H
 #define NETWORKINTERFACE_H
 
+//Gaussians:
+#define GA_COLS				3
+#define GA_ROWS				5
+#define GA_MEAN				0
+#define GA_SIGMA			1
+#define GA_AMPLITUDE		2
+
 //Commands:
 const char EXO_STREAM_CMD = 0x01;
 const char EXO_POWER_CMD  = 0x02;

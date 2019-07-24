@@ -39,6 +39,7 @@ public slots:
 	void sendExoReadUTT();
 	void sendGaussianArray1();
 	void sendGaussianArray2();
+	void gaussianToBytes(int16_t ga[GA_ROWS][GA_COLS], char *bArray);
 
 private:
 	Ui::MainWindow *ui;
@@ -50,6 +51,18 @@ private:
 	QString hostAddress;
 	char bytes[COMMAND_LENGTH];
 	char longBytes[100];
+
+	int16_t gaArr1[GA_ROWS][GA_COLS] = {{200, 100, 500},\
+										 {300, 75, 650},\
+										 {400, 50, 925},\
+										 {500, 45, 1500},\
+										 {600, 45, 2250}};
+
+	int16_t gaArr2[GA_ROWS][GA_COLS] = {{201, 101, 501},\
+										 {301, 76, 651},\
+										 {401, 51, 926},\
+										 {501, 46, 1501},\
+										 {601, 46, 2251}};
 };
 
 #endif // MAINWINDOW_H
