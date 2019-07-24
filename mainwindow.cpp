@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_9, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
 	connect(ui->pushButton_10, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
 	connect(ui->pushButton_11, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
+	connect(ui->pushButton_12, &QPushButton::clicked, this, &MainWindow::sendGaussianArray1);
+	connect(ui->pushButton_13, &QPushButton::clicked, this, &MainWindow::sendGaussianArray2);
 
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 }
@@ -95,6 +97,18 @@ void MainWindow::sendCommand(char cmd, char param)
 	bytes[0] = cmd;
 	bytes[1] = param;
 	tcpSocket->write(bytes, COMMAND_LENGTH);
+}
+
+void MainWindow::sendLongCommand(char cmd, char param, char *payload, char numb)
+{
+	if(!tcpSocket->isOpen()) return;
+	longBytes[0] = cmd;
+	longBytes[1] = param;
+	for(int i = 0; i < numb; i++)
+	{
+		longBytes[2+i] = payload[i];
+	}
+	tcpSocket->write(longBytes, COMMAND_LENGTH_GAUSSIAN);
 }
 
 void MainWindow::sendStreamOn()
@@ -174,6 +188,25 @@ void MainWindow::sendTimestamp()
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_TIMESTAMP_CMD, 1);
 	std::cout << "Wrote timestamp\n";
+	fflush(stdout);
+}
+
+void MainWindow::sendGaussianArray1()
+{
+	if(!tcpSocket->isOpen()) return;
+	//sendCommand(EXO_GAUSSIAN_CMD, 1);
+	char testArray[10] = {10,11,12,13,14};
+	sendLongCommand(EXO_GAUSSIAN_CMD, 1, testArray, 5);
+
+	std::cout << "Wrote Gaussians #1\n";
+	fflush(stdout);
+}
+
+void MainWindow::sendGaussianArray2()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_GAUSSIAN_CMD, 2);
+	std::cout << "Wrote Gaussians #2\n";
 	fflush(stdout);
 }
 

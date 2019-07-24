@@ -20,6 +20,7 @@ public:
 	~MainWindow();
 
 	void sendCommand(char cmd, char param);
+	void sendLongCommand(char cmd, char param, char *payload, char numb);
 
 public slots:
 	void readSocket();
@@ -36,6 +37,8 @@ public slots:
 	void sendExoStartLearning();
 	void sendExoStopLearning();
 	void sendExoReadUTT();
+	void sendGaussianArray1();
+	void sendGaussianArray2();
 
 private:
 	Ui::MainWindow *ui;
@@ -46,6 +49,7 @@ private:
 	QNetworkSession *ns;
 	QString hostAddress;
 	char bytes[COMMAND_LENGTH];
+	char longBytes[100];
 };
 
 #endif // MAINWINDOW_H
