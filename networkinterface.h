@@ -28,7 +28,6 @@ const char CU_READ_UTT = 0x18;
 
 //Settings & internal:
 const char COMMAND_LENGTH = 3;	//Default
-const char COMMAND_LENGTH_GAUSSIAN = 33;
 const int SERVER_TCP_PORT = 63367;
 const char CONNECTION_ACK = 0x7F;
 const char OK_RESPONSE[4] = "AOK";

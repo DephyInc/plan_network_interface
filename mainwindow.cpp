@@ -39,9 +39,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_9, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
 	connect(ui->pushButton_10, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
 	connect(ui->pushButton_11, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
-	connect(ui->pushButton_12, &QPushButton::clicked, this, &MainWindow::sendGaussianArray1);
-	connect(ui->pushButton_13, &QPushButton::clicked, this, &MainWindow::sendGaussianArray2);
-
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 }
 
@@ -101,6 +98,9 @@ void MainWindow::sendCommand(char cmd, char param)
 
 void MainWindow::sendLongCommand(char cmd, char param, char *payload, char numb)
 {
+	qDebug() << "sendLongCommand need to be implemented";
+	assert(false);
+
 	if(!tcpSocket->isOpen()) return;
 	longBytes[0] = cmd;
 	longBytes[1] = param;
@@ -108,7 +108,8 @@ void MainWindow::sendLongCommand(char cmd, char param, char *payload, char numb)
 	{
 		longBytes[2+i] = payload[i];
 	}
-	tcpSocket->write(longBytes, COMMAND_LENGTH_GAUSSIAN);
+	// Example for long command
+	// tcpSocket->write(longBytes, COMMAND_LENGTH_GAUSSIAN);
 }
 
 void MainWindow::sendStreamOn()
@@ -188,43 +189,6 @@ void MainWindow::sendTimestamp()
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_TIMESTAMP_CMD, 1);
 	std::cout << "Wrote timestamp\n";
-	fflush(stdout);
-}
-
-void MainWindow::gaussianToBytes(int16_t ga[GA_ROWS][GA_COLS], char *bArray)
-{
-	int b = 0;
-	for(int r = 0; r < GA_ROWS; r++)
-	{
-		for(int c = 0; c < GA_COLS; c++)
-		{
-			 bArray[b++] = (uint8_t)((ga[r][c] >> 8) & 0xFF);
-			 bArray[b++] = (uint8_t)(ga[r][c] & 0xFF);
-		}
-	}
-}
-
-void MainWindow::sendGaussianArray1()
-{
-	if(!tcpSocket->isOpen()) return;
-
-	char testArray[30];
-	gaussianToBytes(gaArr1, testArray);
-	sendLongCommand(EXO_GAUSSIAN_CMD, 1, testArray, 30);
-
-	std::cout << "Wrote Gaussians #1\n";
-	fflush(stdout);
-}
-
-void MainWindow::sendGaussianArray2()
-{
-	if(!tcpSocket->isOpen()) return;
-
-	char testArray[30];
-	gaussianToBytes(gaArr2, testArray);
-	sendLongCommand(EXO_GAUSSIAN_CMD, 1, testArray, 30);
-
-	std::cout << "Wrote Gaussians #2\n";
 	fflush(stdout);
 }
 
