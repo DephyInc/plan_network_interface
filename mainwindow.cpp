@@ -98,8 +98,6 @@ void MainWindow::sendCommand(char cmd, char param)
 
 void MainWindow::sendLongCommand(char cmd, char param, char *payload, char numb)
 {
-	qDebug() << "sendLongCommand need to be implemented";
-	assert(false);
 
 	if(!tcpSocket->isOpen()) return;
 	longBytes[0] = cmd;
@@ -108,8 +106,8 @@ void MainWindow::sendLongCommand(char cmd, char param, char *payload, char numb)
 	{
 		longBytes[2+i] = payload[i];
 	}
-	// Example for long command
-	// tcpSocket->write(longBytes, COMMAND_LENGTH_GAUSSIAN);
+
+	tcpSocket->write(longBytes, 2 + numb);
 }
 
 void MainWindow::sendStreamOn()
@@ -202,8 +200,13 @@ void MainWindow::sendEventFlag(int8_t f)
 
 void MainWindow::on_pbStartTrial_pressed()
 {
+	char payload[4];
+	payload[0] = (ui->leCurrentStiffness->text().toInt() >> 8) & 0xFF;
+	payload[1] = ui->leCurrentStiffness->text().toInt() & 0xFF;
+	payload[2] = (ui->leSweep->text().toInt() >> 8) & 0xFF;
+	payload[3] = ui->leSweep->text().toInt() & 0xFF;
 	if(!tcpSocket->isOpen()) return;
-	sendCommand(EXO_TRIAL_CMD, TRIAL_START);
+	sendLongCommand(EXO_TRIAL_CMD, TRIAL_START,payload, 4);
 	std::cout << "Sent Trial start\n";
 	fflush(stdout);
 }
