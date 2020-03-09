@@ -200,6 +200,30 @@ void MainWindow::sendEventFlag(int8_t f)
 	fflush(stdout);
 }
 
+void MainWindow::on_pbStartTrial_pressed()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_TRIAL_CMD, TRIAL_START);
+	std::cout << "Sent Trial start\n";
+	fflush(stdout);
+}
+
+void MainWindow::on_pbEndTrial_pressed()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_TRIAL_CMD, TRIAL_END);
+	std::cout << "Sent Trial end\n";
+	fflush(stdout);
+}
+
+void MainWindow::on_pbRestartLearning_pressed()
+{
+	if(!tcpSocket->isOpen()) return;
+	sendCommand(EXO_CUSTOM_CMD, CU_RESTART_LEARNING);
+	std::cout << "Sent Restart Learning\n";
+	fflush(stdout);
+}
+
 MainWindow::~MainWindow()
 {
 	evWindow->close();

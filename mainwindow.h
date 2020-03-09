@@ -38,6 +38,11 @@ public slots:
 	void sendExoStopLearning();
 	void sendExoReadUTT();
 
+private slots:
+	void on_pbStartTrial_pressed();
+	void on_pbRestartLearning_pressed();
+	void on_pbEndTrial_pressed();
+
 private:
 	Ui::MainWindow *ui;
 	QWidget *evWindow;
