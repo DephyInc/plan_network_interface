@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/cnctbtn_connected.png</file>
+        <file>images/cnctbtn_connecting.png</file>
+        <file>images/cnctbtn_disconnected.png</file>
+        <file>images/configbtn.png</file>
+        <file>images/flash.png</file>
+        <file>images/logbtn.png</file>
+        <file>images/streambtn_start.png</file>
+        <file>images/streambtn_stop.png</file>
+        <file>images/d_logo_outlined.ico</file>
+        <file>images/d_logo_small.png</file>
+        <file>images/d_logo_small_outlined.png</file>
+    </qresource>
+</RCC>
