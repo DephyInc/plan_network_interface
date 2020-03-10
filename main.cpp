@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 
 void setDarkStyle()
 {
-
 	qApp->setStyle(QStyleFactory::create("Fusion"));
 
 	QPalette darkPalette;

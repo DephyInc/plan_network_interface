@@ -5,6 +5,25 @@
 #include "w_event.h"
 #include <QString>
 
+QString getWinHeader()
+{
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wdate-time"
+
+	QString date = QString(__DATE__);
+	date = date.simplified();
+	std::string appRevString		=  __DATE__ " " __TIME__;
+
+	//Header contains revision and timestamp:
+	static const QString winHeader =
+				QString("Network Command Sender [")
+				+ QString::fromStdString(appRevString) + QString(']');
+
+	#pragma GCC diagnostic pop
+
+	return winHeader;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
@@ -13,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 	setWindowIcon(QIcon(":icons/d_logo_small_outlined.png"));
 
-	this->setWindowTitle("Network Command Sender");
+	this->setWindowTitle(getWinHeader());
 
 	/*
 	//Open Event Flag window
@@ -40,6 +59,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_10, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
 	connect(ui->pushButton_11, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
+
+	//Sending timestamps not supported at this time
+	ui->pushButton_11->setDisabled(true);
 }
 
 void MainWindow::eventFlag(int index)
