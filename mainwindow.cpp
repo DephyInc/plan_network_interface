@@ -200,13 +200,8 @@ void MainWindow::sendEventFlag(int8_t f)
 
 void MainWindow::on_pbStartTrial_pressed()
 {
-	char payload[4];
-	payload[0] = (ui->leCurrentStiffness->text().toInt() >> 8) & 0xFF;
-	payload[1] = ui->leCurrentStiffness->text().toInt() & 0xFF;
-	payload[2] = (ui->leSweep->text().toInt() >> 8) & 0xFF;
-	payload[3] = ui->leSweep->text().toInt() & 0xFF;
 	if(!tcpSocket->isOpen()) return;
-	sendLongCommand(EXO_TRIAL_CMD, TRIAL_START,payload, 4);
+	sendCommand(EXO_TRIAL_CMD, TRIAL_START);
 	std::cout << "Sent Trial start\n";
 	fflush(stdout);
 }
