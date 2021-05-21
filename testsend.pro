@@ -24,14 +24,17 @@ TEMPLATE = app
 
 RC_ICONS = misc/images/d_logo_outlined.ico
 
+INCLUDEPATH += \
+		../plan/app/inc \
+
 SOURCES += \
 		main.cpp \
 		mainwindow.cpp \
 		w_event.cpp
 
 HEADERS += \
+		../plan/app/inc/networkinterface.h \
 		mainwindow.h \
-		networkinterface.h \
 		w_event.h \
 		counter.h
 

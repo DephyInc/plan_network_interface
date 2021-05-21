@@ -47,21 +47,21 @@ MainWindow::MainWindow(QWidget *parent) :
 	//Default text:
 	ui->textEdit->setText("127.0.0.1");
 
-	connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::sendStreamOn);
-	connect(ui->pushButton_2, &QPushButton::clicked, this, &MainWindow::sendStreamOff);
-	connect(ui->pushButton_3, &QPushButton::clicked, this, &MainWindow::sendExoPowerOn);
-	connect(ui->pushButton_4, &QPushButton::clicked, this, &MainWindow::sendExoPowerOff);
-	connect(ui->pushButton_5, &QPushButton::clicked, this, &MainWindow::connectToPlanGUI);
-	connect(ui->pushButton_6, &QPushButton::clicked, this, &MainWindow::requestTimestamps);
-	connect(ui->pushButton_7, &QPushButton::clicked, this, &MainWindow::sendExoResetStats);
-	connect(ui->pushButton_8, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
-	connect(ui->pushButton_9, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
-	connect(ui->pushButton_10, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
-	connect(ui->pushButton_11, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
+	connect(ui->streamOnPushButton, &QPushButton::clicked, this, &MainWindow::sendStreamOn);
+	connect(ui->streamOffPushButton, &QPushButton::clicked, this, &MainWindow::sendStreamOff);
+	connect(ui->powerOnPushButton, &QPushButton::clicked, this, &MainWindow::sendExoPowerOn);
+	connect(ui->powerOffPushButton, &QPushButton::clicked, this, &MainWindow::sendExoPowerOff);
+	connect(ui->connectPushButton, &QPushButton::clicked, this, &MainWindow::connectToPlanGUI);
+	connect(ui->getTimestampsPushButton, &QPushButton::clicked, this, &MainWindow::requestTimestamps);
+	connect(ui->resetStatsPushButton, &QPushButton::clicked, this, &MainWindow::sendExoResetStats);
+	connect(ui->startLearningPushButton, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
+	connect(ui->stopLearningPushButton, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
+	connect(ui->readUttPushButton, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
+	connect(ui->setTimestampsPushButton, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 
 	//Sending timestamps not supported at this time
-	ui->pushButton_11->setDisabled(true);
+	ui->setTimestampsPushButton->setDisabled(true);
 }
 
 void MainWindow::eventFlag(int index)
@@ -79,9 +79,9 @@ void MainWindow::connectToPlanGUI()
 
 	tcpSocket->connectToHost(hostAddress, SERVER_TCP_PORT);
 
-	bool b = tcpSocket->isOpen();
+	bool portIsOpen = tcpSocket->isOpen();
 
-	if(b)
+	if(portIsOpen)
 	{
 		out.setDevice(tcpSocket);
 		out.setVersion(QDataStream::Qt_5_10);
