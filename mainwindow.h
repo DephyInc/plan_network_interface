@@ -45,7 +45,7 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;
-	QWidget *evWindow;
+	QWidget *evWindow = nullptr;
 
 	QDataStream out;
 	QTcpSocket *tcpSocket;

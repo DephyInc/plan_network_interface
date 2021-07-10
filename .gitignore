@@ -1,4 +1,5 @@
 Plan3.pro.user
+testsend.pro.user
 build-app-Desktop_Qt_5_10_1_MinGW_32bit-Debug/
 *.user
 app/include/flexseastackold/
@@ -12,5 +13,6 @@ build-fx_plan_stack-Desktop_Qt_5_10_1_MinGW_32bit-Debug/
 *.Debug
 *.stash
 build/
+*.user*
 
 gui_settings\.sh

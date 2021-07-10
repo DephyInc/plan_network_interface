@@ -55,8 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->getTimestampsPushButton, &QPushButton::clicked, this, &MainWindow::requestTimestamps);
 	connect(ui->resetStatsPushButton, &QPushButton::clicked, this, &MainWindow::sendExoResetStats);
 	connect(ui->startLearningPushButton, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
-	connect(ui->stopLearningPushButton, &QPushButton::clicked, this, &MainWindow::sendExoStopLearning);
-	connect(ui->readUttPushButton, &QPushButton::clicked, this, &MainWindow::sendExoReadUTT);
+	connect(ui->restartLearningPushButton, &QPushButton::clicked, this, &MainWindow::sendExoStartLearning);
+
 	connect(ui->setTimestampsPushButton, &QPushButton::clicked, this, &MainWindow::sendTimestamp);
 	//connect(myEventWin, &W_Event::buttonClick, this, &MainWindow::eventFlag);
 
@@ -216,7 +216,7 @@ void MainWindow::sendEventFlag(int8_t f)
 {
 	if(!tcpSocket->isOpen()) return;
 	sendCommand(EXO_EVENT_CMD, f);
-	std::cout << "Sent stream on \n";
+	std::cout << "Sent event flag \n";
 	fflush(stdout);
 }
 
@@ -246,7 +246,11 @@ void MainWindow::on_pbRestartLearning_pressed()
 
 MainWindow::~MainWindow()
 {
-	evWindow->close();
+	if(evWindow != nullptr)
+	{
+		evWindow->close();
+		delete evWindow;
+	}
+
 	delete ui;
-	delete evWindow;
 }

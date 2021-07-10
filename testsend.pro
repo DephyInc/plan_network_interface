@@ -26,6 +26,7 @@ RC_ICONS = misc/images/d_logo_outlined.ico
 
 INCLUDEPATH += \
 		../plan/app/inc \
+		../plan/app/inc/NetworkModeClasses \
 
 SOURCES += \
 		main.cpp \
@@ -33,7 +34,7 @@ SOURCES += \
 		w_event.cpp
 
 HEADERS += \
-		../plan/app/inc/networkinterface.h \
+		networkinterface.h \
 		mainwindow.h \
 		w_event.h \
 		counter.h
